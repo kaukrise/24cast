@@ -1,0 +1,25 @@
+{
+    "appKeys": {
+        "KEY_DATA": 5
+    },
+    "capabilities": [
+        ""
+    ],
+    "companyName": "Kai",
+    "longName": "24cast",
+    "projectType": "native",
+    "resources": {
+        "media": []
+    },
+    "sdkVersion": "3",
+    "shortName": "24cast",
+    "targetPlatforms": [
+        "aplite",
+        "basalt"
+    ],
+    "uuid": "54b351bb-061d-406a-bb00-8c153670cf7c",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": false
+    }
+}
