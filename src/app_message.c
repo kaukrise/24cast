@@ -45,16 +45,34 @@ static void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
   APP_LOG(APP_LOG_LEVEL_INFO, "Outbox send success!");
 }
 
+static void background_draw(Layer *layer, GContext *ctx) {
+  GRect bounds = layer_get_bounds(layer);
+  
+  // Draw a black filled rectangle with sharp corners
+  graphics_context_set_fill_color(ctx, GColorBlack);
+  graphics_fill_rect(ctx, bounds, 0, GCornerNone); 
+  
+  // Draw a white filled circle a radius of half the layer height
+  graphics_context_set_fill_color(ctx, GColorWhite);
+  const int16_t half_h = bounds.size.h / 2;
+  //char str[12];
+  //xprintf(str, "%d", half_h);
+  //APP_LOG(APP_LOG_LEVEL_INFO, str);
+  graphics_fill_circle(ctx, GPoint(half_h, half_h), half_h);
+}
+
 static void main_window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   GRect window_bounds = layer_get_bounds(window_layer);
 
   // Create output TextLayer
-  s_output_layer = text_layer_create(GRect(5, 0, window_bounds.size.w - 5, window_bounds.size.h));
+  s_output_layer = text_layer_create(GRect(5, 50, window_bounds.size.w - 5, 30));
   text_layer_set_font(s_output_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
   text_layer_set_text(s_output_layer, "Waiting...");
   text_layer_set_overflow_mode(s_output_layer, GTextOverflowModeWordWrap);
   layer_add_child(window_layer, text_layer_get_layer(s_output_layer));
+  
+  layer_set_update_proc(window_layer, background_draw);
 }
 
 static void main_window_unload(Window *window) {
